@@ -11,6 +11,7 @@
 ### Monocular assembly progress monitoring: 
 
 
+
 ## Gap in research and the point of departure: 
 
 Monocular construction progress monitoring has not been investigated in modular construction factories. 
