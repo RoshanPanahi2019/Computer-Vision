@@ -61,8 +61,6 @@ testSteps = len(testDS) // config.BATCH_SIZE
 H = {"train_loss": [], "test_loss": []}
 
 
-
-
 # loop over epochs
 print("[INFO] training the network...")
 startTime = time.time()
@@ -86,6 +84,7 @@ for e in tqdm(range(config.NUM_EPOCHS)):
 		opt.step()
 		# add the loss to the total training loss so far
 		totalTrainLoss += loss
+
 	# switch off autograd
 	with torch.no_grad():
 		# set the model in evaluation mode
@@ -99,6 +98,7 @@ for e in tqdm(range(config.NUM_EPOCHS)):
 			totalTestLoss += lossFunc(pred, y)
 	# calculate the average training and validation loss
 	avgTrainLoss = totalTrainLoss / trainSteps
+
 	avgTestLoss = totalTestLoss / testSteps
 	# update our training history
 	H["train_loss"].append(avgTrainLoss.cpu().detach().numpy())
@@ -115,6 +115,8 @@ print("[INFO] total time taken to train the model: {:.2f}s".format(
 
 
 # plot the training loss
+print(H["train_loss"])
+exit()
 plt.style.use("ggplot")
 plt.figure()
 plt.plot(H["train_loss"], label="train_loss")
