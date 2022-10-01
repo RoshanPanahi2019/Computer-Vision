@@ -1,6 +1,7 @@
 # import the necessary packages
 from torch.utils.data import Dataset
 import cv2
+
 class SegmentationDataset(Dataset):
 	def __init__(self, imagePaths, maskPaths, transforms):
 		self.imagePaths = imagePaths# store the image and mask filepaths, and augmentation
