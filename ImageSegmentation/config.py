@@ -19,7 +19,7 @@ NUM_CLASSES = 1
 NUM_LEVELS = 3
 
 INIT_LR = 0.001 #initialize learning rate,
-NUM_EPOCHS = 40 # number of epochs to train for
+NUM_EPOCHS = 10 # number of epochs to train for
 BATCH_SIZE = 64 # batch size
 INPUT_IMAGE_WIDTH = 128 # define the input image dimensions
 INPUT_IMAGE_HEIGHT = 128
