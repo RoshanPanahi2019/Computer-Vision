@@ -1,6 +1,7 @@
 # USAGE
 # python train.py
 # import the necessary packages
+
 from dataset import SegmentationDataset
 from model import UNet
 import config
@@ -18,18 +19,17 @@ import os
 
 imagePaths = sorted(list(paths.list_images(config.IMAGE_DATASET_PATH))) # load the image and mask filepaths in a sorted manner
 maskPaths = sorted(list(paths.list_images(config.MASK_DATASET_PATH)))
+
 split = train_test_split(imagePaths, maskPaths, # partition the data into training and testing splits using 85% of
 	test_size=config.TEST_SPLIT, random_state=42) # the data for training and the remaining 15% for testing
 (trainImages, testImages) = split[:2] # unpack the data split
 (trainMasks, testMasks) = split[2:]
 
+
 print("[INFO] saving testing image paths...") # write the testing image paths to disk so that we can use then
 f = open(config.TEST_PATHS, "w") # when evaluating/testing our model
 f.write("\n".join(testImages))
 f.close()
-exit()
-
-
 # define transformations
 transforms = transforms.Compose([transforms.ToPILImage(),
  	transforms.Resize((config.INPUT_IMAGE_HEIGHT,
@@ -49,9 +49,6 @@ trainLoader = DataLoader(trainDS, shuffle=True,
 testLoader = DataLoader(testDS, shuffle=False,
 	batch_size=config.BATCH_SIZE, pin_memory=config.PIN_MEMORY,
 	num_workers=os.cpu_count())
-
-
-
 # initialize our UNet model
 unet = UNet().to(config.DEVICE)
 # initialize loss function and optimizer
