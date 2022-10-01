@@ -1,9 +1,9 @@
 # USAGE
 # python train.py
 # import the necessary packages
-from pyimagesearch.dataset import SegmentationDataset
-from pyimagesearch.model import UNet
-from pyimagesearch import config
+from dataset import SegmentationDataset
+from model import UNet
+import config
 from torch.nn import BCEWithLogitsLoss
 from torch.optim import Adam
 from torch.utils.data import DataLoader
@@ -16,7 +16,6 @@ import torch
 import time
 import os
 
-
 imagePaths = sorted(list(paths.list_images(config.IMAGE_DATASET_PATH))) # load the image and mask filepaths in a sorted manner
 maskPaths = sorted(list(paths.list_images(config.MASK_DATASET_PATH)))
 split = train_test_split(imagePaths, maskPaths, # partition the data into training and testing splits using 85% of
@@ -28,7 +27,7 @@ print("[INFO] saving testing image paths...") # write the testing image paths to
 f = open(config.TEST_PATHS, "w") # when evaluating/testing our model
 f.write("\n".join(testImages))
 f.close()
-
+exit()
 
 
 # define transformations
