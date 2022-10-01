@@ -1,6 +1,3 @@
-/media/ms/D/myGithub_Classified/Dataset_Segmentation/dataset/train/images/0aea45ba8f.png
-/media/ms/D/myGithub_Classified/Dataset_Segmentation/dataset/train/images/0b7459a0af.png
-/media/ms/D/myGithub_Classified/Dataset_Segmentation/dataset/train/images/0bed5f2ace.png
-/media/ms/D/myGithub_Classified/Dataset_Segmentation/dataset/train/images/0be923c49b.png
-/media/ms/D/myGithub_Classified/Dataset_Segmentation/dataset/train/images/0aab0afa9c.png
-/media/ms/D/myGithub_Classified/Dataset_Segmentation/dataset/train/images/0bca43f7ff.png
+/media/ms/D/myGithub_Classified/Dataset_Segmentation/dataset/train/images/00a3af90ab.png
+/media/ms/D/myGithub_Classified/Dataset_Segmentation/dataset/train/images/0a0814464f.png
+/media/ms/D/myGithub_Classified/Dataset_Segmentation/dataset/train/images/0a31d7553c.png
