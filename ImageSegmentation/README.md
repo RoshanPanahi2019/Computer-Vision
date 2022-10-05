@@ -31,10 +31,13 @@ The goal of the proposed method is to automatically monitor the progress of asse
 
 
 ### Image segmentation-based approach: 
+Labelbox annotation software has been used to create the train/test datasets. 
 The goal in this section is to locate the corner of the modular unit at a specific works station, using image segmentation. 
 
 
+
 ## Results: 
+
 
 
 

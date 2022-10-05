@@ -6,6 +6,11 @@ The goal of this project is to detect each individual modular unit on the shopfl
 ### Model: Unet 
 
 
+## Environment Requirements: 
+
+
+
+## Implementation: 
 
 
 

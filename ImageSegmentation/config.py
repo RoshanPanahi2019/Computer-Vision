@@ -1,4 +1,9 @@
-# https://pyimagesearch.com/2021/11/08/u-net-training-image-segmentation-models-in-pytorch/
+# I used: https://pyimagesearch.com/2021/11/08/u-net-training-image-segmentation-models-in-pytorch/
+# Annotation tool for Semantic Segmentation: label-studio start
+# Another instance segmentation annotation tool: https://docs.hyperlabel.com/get-started-1/start-here
+# Will use multi-class segmentation: https://medium.com/@mhamdaan/multi-class-semantic-segmentation-with-u-net-pytorch-ee81a66bba89
+# https://github.com/wkentaro/labelme#windows
+# I used this for box tracking instance segmentation:: https://app.plainsight.ai/label-and-train/datasets/01GEHT48ARH1F8RJK86KKFRKBB/labeler/01GEHT7TPN5MQJZ5XDM7XGC49R
 
 # import the necessary packages
 from errno import EIDRM
@@ -9,6 +14,7 @@ import os
 DATASET_PATH = os.path.join("/media/ms/D/myGithub_Classified/Dataset_Segmentation/dataset/", "train") # base path of the dataset
 IMAGE_DATASET_PATH = os.path.join(DATASET_PATH, "images")# define the path to the images and masks dataset
 MASK_DATASET_PATH = os.path.join(DATASET_PATH, "masks")
+
 TEST_SPLIT = 0.15 # define the test split
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu" # determine the device to be used for training and evaluation
 PIN_MEMORY = True if DEVICE == "cuda" else False # determine if we will be pinning memory during data loading
