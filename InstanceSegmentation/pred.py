@@ -39,7 +39,6 @@ def get_prediction(img_path, threshold):
   pred_class = pred_class[:pred_t+1]
   return masks, pred_boxes, pred_class
 
-
 def random_colour_masks(image):
   colours = [[0, 255, 0],[0, 0, 255],[255, 0, 0],[0, 255, 255],[255, 255, 0],[255, 0, 255],[80, 70, 180],[250, 80, 190],[245, 145, 50],[70, 150, 250],[50, 190, 190]]
   r = np.zeros_like(image).astype(np.uint8)
@@ -65,7 +64,7 @@ def instance_segmentation_api(img_path, threshold=0.5, rect_th=3, text_size=3, t
   plt.yticks([])
   plt.show()
 
-#================================
+#==================================
 
 if __name__ == "__main__":
   img_path="/media/ms/D/myGithub/Computer-Vision/InstanceSegmentation/Input/image1.jpg"
