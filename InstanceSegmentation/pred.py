@@ -64,7 +64,7 @@ def instance_segmentation_api(img_path, threshold=0.5, rect_th=3, text_size=3, t
   plt.yticks([])
   plt.show()
 
-#==================================
+#===================================
 
 if __name__ == "__main__":
   img_path="/media/ms/D/myGithub/Computer-Vision/InstanceSegmentation/Input/image1.jpg"
