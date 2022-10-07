@@ -1,11 +1,13 @@
 # Mask RCNN: https://debuggercafe.com/instance-segmentation-with-pytorch-and-mask-r-cnn/
 # Mask RCNN I used: https://learnopencv.com/mask-r-cnn-instance-segmentation-with-pytorch/
 
+import numpy as np
+import random
+import cv2
+import matplotlib.pyplot as plt
 from torchvision import models
-
-model = models.detection.maskrcnn_resnet50_fpn(pretrained=True)
-model.eval()
-
+from torchvision import transforms as T
+from PIL import Image
 COCO_INSTANCE_CATEGORY_NAMES = [
     '__background__', 'person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
     'train', 'truck', 'boat', 'traffic light', 'fire hydrant', 'N/A', 'stop sign',
@@ -30,7 +32,7 @@ def get_prediction(img_path, threshold):
   pred_t = [pred_score.index(x) for x in pred_score if x>threshold][-1]
   masks = (pred[0]['masks']>0.5).squeeze().detach().cpu().numpy()
   pred_class = [COCO_INSTANCE_CATEGORY_NAMES[i] for i in list(pred[0]['labels'].numpy())]
-  pred_boxes = [[(i[0], i[1]), (i[2], i[3])] for i in list(pred[0]['boxes'].detach().numpy())]
+  pred_boxes = [[(int(i[0]), int(i[1])), (int(i[2]), int(i[3]))] for i in list(pred[0]['boxes'].detach().numpy())]
   masks = masks[:pred_t+1]
   pred_boxes = pred_boxes[:pred_t+1]
   pred_class = pred_class[:pred_t+1]
@@ -55,10 +57,23 @@ def instance_segmentation_api(img_path, threshold=0.5, rect_th=3, text_size=3, t
   for i in range(len(masks)):
     rgb_mask = random_colour_masks(masks[i])
     img = cv2.addWeighted(img, 1, rgb_mask, 0.5, 0)
-    cv2.rectangle(img, boxes[i][0], boxes[i][1],color=(0, 255, 0), thickness=rect_th)
+    print(boxes)
+    cv2.rectangle(img, (boxes[i][0]), boxes[i][1],(0, 255, 0), rect_th)
     cv2.putText(img,pred_cls[i], boxes[i][0], cv2.FONT_HERSHEY_SIMPLEX, text_size, (0,255,0),thickness=text_th)
   plt.figure(figsize=(20,30))
   plt.imshow(img)
   plt.xticks([])
   plt.yticks([])
   plt.show()
+
+
+
+#--------------------------
+if __name__ == "__main__":
+  img_path="/media/ms/D/myGithub/Computer-Vision/InstanceSegmentation/Input/image1.jpg"
+  print(img_path)
+  model = models.detection.maskrcnn_resnet50_fpn(pretrained=True)
+  model.eval()
+  instance_segmentation_api(img_path, threshold=0.5, rect_th=3, text_size=3, text_th=3)
+
+
