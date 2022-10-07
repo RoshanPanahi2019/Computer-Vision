@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 from torchvision import models
 from torchvision import transforms as T
 from PIL import Image
+
 COCO_INSTANCE_CATEGORY_NAMES = [
     '__background__', 'person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
     'train', 'truck', 'boat', 'traffic light', 'fire hydrant', 'N/A', 'stop sign',
@@ -48,8 +49,6 @@ def random_colour_masks(image):
   coloured_mask = np.stack([r, g, b], axis=2)
   return coloured_mask
 
-
-
 def instance_segmentation_api(img_path, threshold=0.5, rect_th=3, text_size=3, text_th=3):
   masks, boxes, pred_cls = get_prediction(img_path, threshold)
   img = cv2.imread(img_path)
@@ -66,9 +65,7 @@ def instance_segmentation_api(img_path, threshold=0.5, rect_th=3, text_size=3, t
   plt.yticks([])
   plt.show()
 
-
-
-#--------------------------
+#================================
 if __name__ == "__main__":
   img_path="/media/ms/D/myGithub/Computer-Vision/InstanceSegmentation/Input/image1.jpg"
   print(img_path)
