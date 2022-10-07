@@ -48,7 +48,7 @@ def random_colour_masks(image):
   r[image == 1], g[image == 1], b[image == 1] = colours[random.randrange(0,10)]
   coloured_mask = np.stack([r, g, b], axis=2)
   return coloured_mask
-
+d 
 def instance_segmentation_api(img_path, threshold=0.5, rect_th=3, text_size=3, text_th=3):
   masks, boxes, pred_cls = get_prediction(img_path, threshold)
   img = cv2.imread(img_path)
