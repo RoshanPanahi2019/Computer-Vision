@@ -6,6 +6,7 @@
     # dataset size
     # perpective view 
     # model:
+        # implement transformer-based segmentation.
         # hyper parameter tuning
         # using resnet 101
         # using other detection backbones: Yolo
@@ -176,7 +177,7 @@ def main():
         lr_scheduler.step()
         # evaluate on the test dataset
         img_write=False
-        if (epoch==45):img_write=True
+        if (epoch==10):img_write=True
         evaluate(model, data_loader_test,img_write, device=device)
 
     print("That's it!")
