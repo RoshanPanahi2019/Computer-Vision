@@ -1,27 +1,6 @@
 # Sample code from the TorchVision 0.3 Object Detection Finetuning Tutorial
 # http://pytorch.org/tutorials/intermediate/torchvision_tutorial.html
 
-# The result is not good, even when tested on the training data
-# Read about instance segmentation tips:
-    # dataset size
-    # perpective view 
-    # model:
-        # implement transformer-based segmentation.
-        # hyper parameter tuning
-        # using resnet 101
-        # using other detection backbones: Yolo
-        # using other segmentation methods with the same data
-    # dataset:
-        # increase the size of the dataset
-        # Augmentation
-        # VR dataset
-        # undistort the images
-        # using other techniques to increase the size of the dataset:
-            # hand drawings
-            # cad drawings
-    #if results improved:
-        # annotate from other views
-
 import os
 import numpy as np
 import torch
