@@ -117,7 +117,7 @@ def evaluate(model, data_loader,img_write, device):
                 my_boxes=res[my_image_id]['boxes']
                 my_masks=(res[my_image_id]['masks']).squeeze(dim=1)
                 class_ids=res[my_image_id]['labels']
-                class_names=["bg","ped"]
+                class_names=["bg","module"]
                 my_masks=torch.permute(my_masks,(1,2,0))
                 myBoxes = torch.cat((my_boxes, class_ids.unsqueeze(dim=1)), 1)
                 my_image=torch.permute(images[i],(1,2,0))
@@ -125,7 +125,7 @@ def evaluate(model, data_loader,img_write, device):
                 display_instances(my_image, myBoxes, my_masks, class_ids, class_names,
                                     scores=None, title="",
                                 figsize=(16, 16), ax=None,
-                                show_mask=True, show_bbox=True,
+                                show_mask=False, show_bbox=True,
                                 colors=None, captions=None)
         #================================
     # gather the stats from all processes

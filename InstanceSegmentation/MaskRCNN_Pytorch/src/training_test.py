@@ -21,7 +21,7 @@ class myDataset(object):
         self.imgs = list(sorted(os.listdir(os.path.join(root, "images"))))
         self.masks = list(sorted(os.listdir(os.path.join(root, "masks"))))
 
-    def __getitem__(self, idx):
+    def __getitem__(self, idx): 
         # load images and masks
         img_path = os.path.join(self.root, "images", self.imgs[idx])
         mask_path = os.path.join(self.root, "masks", self.masks[idx])
@@ -101,16 +101,17 @@ def get_model_instance_segmentation(num_classes):
 def get_transform(train):
     transforms = []
     transforms.append(T.ToTensor())
-    if train:
-        transforms.append(T.RandomHorizontalFlip(0.5))
+    #if train:
+        #transforms.append(T.RandomHorizontalFlip(0.5))
     return T.Compose(transforms)
-
+ 
 
 def main():
     my_root="/media/mst/Backup/dataset/InstanceSegmentation/myDataset"
     # train on the GPU or on the CPU, if a GPU is not available
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-
+    print("device is:")
+    print(device)
     # our dataset has two classes only - background and person
     num_classes = 2
     # use our dataset and defined transformations
