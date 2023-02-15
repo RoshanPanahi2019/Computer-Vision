@@ -1,0 +1,11 @@
+﻿"                                      Camera.No     
+ RoI",camera_0,camera_1,camera_2,camera_3,camera_4,camera_5,camera_6,camera_7,camera_8,camera_9,camera_10,,
+RoI_0,,,,"[120, 250, 400, 480 ]",,,,,,,,,
+RoI_1,,,,"[300, 800, 300, 320 ]",,,,,,,,,
+RoI_2,,,,,,,,,,,,,
+RoI_3,,,,,,,,,,,,,
+RoI_4,,,,,,,,,,,,,
+RoI_5,,,,,,,,,,,,,
+RoI_6,,,,,,,,,,,,,
+RoI_7,,,,,,,,,,,,,"RoI(X_L,Y_L,X_R,Y_R)"
+RoI_8,,,,,,,,,,,,,

@@ -1,3 +1,4 @@
+# https://towardsdatascience.com/mask-rcnn-implementation-on-a-custom-dataset-fd9a878123d4
 import json
 import os
 import numpy as np
@@ -41,24 +42,31 @@ def single_class_mask():
         cv2.imwrite('masks/%01.0f' % k +'.png',mask.astype(np.uint8))
 
 def multi_class_mask():
-    path="/media/mst/Backup/dataset/InstanceSegmentation/myDataset_Augmentation/Annotation/18/via_project_13Feb2023_12h25m_json.json"
+    path="/media/mst/Backup/dataset/InstanceSegmentation/myDataset_Augmentation/annotation/18/via_project_13Feb2023_12h25m_json.json" #  Walk the directory and include all files. 
     with open(path, "r") as my_json:
         json_per_image=json.load(my_json)
     for key in json_per_image.keys():
         image_name=json_per_image[key]['filename'] 
-        img = np.asarray(PIL.Image.open('/media/mst/Backup/dataset/InstanceSegmentation/myDataset_Augmentation/Images/'+image_name))    
-        mask = np.zeros((img.shape[0],img.shape[1])) # draw a blank canvas
-        for i in range (len(json_per_image[key]["regions"])):
+        img = np.asarray(PIL.Image.open('/media/mst/Backup/dataset/InstanceSegmentation/myDataset_Augmentation/images/'+image_name))    
+        
+        polygons = [r['shape_attributes'] for r in json_per_image[key]['regions']] 
+        objects = [s['region_attributes']['Component'] for s in json_per_image[key]["regions"]]
+        num_ids = [name_dict[a] for a in objects]
+        print("objects:",objects)
+        print("numids:",num_ids)
+
+        for i in range (len(objects)):
             shape1_x=json_per_image[key]["regions"][i]['shape_attributes']['all_points_x']
             shape1_y=json_per_image[key]["regions"][i]['shape_attributes']['all_points_y']
-            lbl=label[json_per_image[key]["regions"][i]["region_attributes"]["Component"]] # Return the label for each region
+            #lbl=label[json_per_image[key]["regions"][i]["region_attributes"]["Component"]] # Return the label for each region
             ab=np.stack((shape1_x, shape1_y), axis=1)
-            img3=cv2.drawContours(mask, [ab], -1, i+1, -1) # read the loader in Mask R-CNN and change the colors accordingly.
-        cv2.imwrite('/media/mst/Backup/dataset/InstanceSegmentation/myDataset_Augmentation/Mask/' +image_name[:-5]+'.png',mask.astype(np.uint8))
+            mask = np.zeros((img.shape[0],img.shape[1])) # draw a blank canvas
+            img3=cv2.drawContours(mask, [ab], -1, num_ids[i]*50, -1) 
+            cv2.imwrite('/media/mst/Backup/dataset/InstanceSegmentation/myDataset_Augmentation/masks/' +image_name[:-5]+"-"+str(i)+'.png',mask.astype(np.uint8))
 
 #==================================
 if __name__=="__main__":
     #single_class_mask()
-    label={"Module":0,"BathPod":1}
+    name_dict={"Module":1,"BathPod":2}
     color={}
     multi_class_mask()

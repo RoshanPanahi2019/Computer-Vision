@@ -1,0 +1,1 @@
+python main.py --mask True --use_feature_maps False --lr 1e-4 --dataset construction --batch_size 32 --text mod_lr_5e-4_entire_no_bg --patch_size 128 --max_epoch 5 --modified True --test True --exclude_bg True
