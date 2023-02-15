@@ -18,13 +18,13 @@ class myDataset(object):
         self.transforms = transforms
         # load all image files, sorting them to
         # ensure that they are aligned
-        self.imgs = list(sorted(os.listdir(os.path.join(root, "images"))))
-        self.masks = list(sorted(os.listdir(os.path.join(root, "masks"))))
+        self.imgs = list(sorted(os.listdir(os.path.join(root, "PNGImages"))))
+        self.masks = list(sorted(os.listdir(os.path.join(root, "PedMasks"))))
 
     def __getitem__(self, idx): 
         # load images and masks
-        img_path = os.path.join(self.root, "images", self.imgs[idx])
-        mask_path = os.path.join(self.root, "masks", self.masks[idx])
+        img_path = os.path.join(self.root, "PNGImages", self.imgs[idx])
+        mask_path = os.path.join(self.root, "PedMasks", self.masks[idx])
         img = Image.open(img_path).convert("RGB")
         # note that we haven't converted the mask to RGB,
         # because each color corresponds to a different instance
@@ -34,7 +34,9 @@ class myDataset(object):
         mask = np.array(mask)
         # instances are encoded as different colors
         obj_ids = np.unique(mask)
+ 
         # first id is the background, so remove it
+      
         obj_ids = obj_ids[1:]
 
         # split the color-encoded mask into a set
@@ -43,6 +45,7 @@ class myDataset(object):
 
         # get bounding box coordinates for each mask
         num_objs = len(obj_ids)
+  
         boxes = []
         for i in range(num_objs):
             pos = np.where(masks[i])
@@ -55,6 +58,8 @@ class myDataset(object):
         boxes = torch.as_tensor(boxes, dtype=torch.float32)
         # there is only one class
         labels = torch.ones((num_objs,), dtype=torch.int64)
+        print(labels)
+        exit()
         masks = torch.as_tensor(masks, dtype=torch.uint8)
 
         image_id = torch.tensor([idx])
@@ -107,13 +112,15 @@ def get_transform(train):
  
 
 def main():
-    my_root="/media/mst/Backup/dataset/InstanceSegmentation/myDataset"
+    my_root="/media/mst/Backup/dataset/InstanceSegmentation/myDataset_Augmentation/"
+    my_root="/media/mst/Backup/dataset/InstanceSegmentation/PennFudanPed/"
+
     # train on the GPU or on the CPU, if a GPU is not available
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
     print("device is:")
     print(device)
-    # our dataset has two classes only - background and person
-    num_classes = 2
+    #  dataset has three classes: {background, Module, BathPod}
+    num_classes = 3
     # use our dataset and defined transformations
     dataset = myDataset(my_root, get_transform(train=True))
     dataset_test = myDataset(my_root, get_transform(train=False))
