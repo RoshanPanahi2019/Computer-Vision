@@ -178,7 +178,7 @@ def main():
             plt.ylabel("mAP")
             plt.show()
 
-    print("That's it!")
+    print("That's it!!")
 
 if __name__ == "__main__":
     main()
