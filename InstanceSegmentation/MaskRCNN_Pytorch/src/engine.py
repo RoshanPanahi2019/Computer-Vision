@@ -87,13 +87,14 @@ def evaluate(model, data_loader,img_write, device):
     header = "Test:"
 
     coco = get_coco_api_from_dataset(data_loader.dataset)
+
     iou_types = _get_iou_types(model)
     coco_evaluator = CocoEvaluator(coco, iou_types)
     
     for images, targets in metric_logger.log_every(data_loader, 100, header):
 
         images = list(img.to(device) for img in images)
-
+   
         if torch.cuda.is_available():
             torch.cuda.synchronize()
         model_time = time.time()
@@ -104,12 +105,13 @@ def evaluate(model, data_loader,img_write, device):
         model_time = time.time() - model_time
 
         res = {target["image_id"].item(): output for target, output in zip(targets, outputs)}
+        
         evaluator_time = time.time()
         coco_evaluator.update(res)
         evaluator_time = time.time() - evaluator_time
 
         metric_logger.update(model_time=model_time, evaluator_time=evaluator_time)
-         # Visualization================
+        # Visualization================ for 2 classes: [bg, module]
         if img_write:
             m_batch_size=len(list(res.keys()))
             for i in range (m_batch_size):
@@ -117,7 +119,7 @@ def evaluate(model, data_loader,img_write, device):
                 my_boxes=res[my_image_id]['boxes']
                 my_masks=(res[my_image_id]['masks']).squeeze(dim=1)
                 class_ids=res[my_image_id]['labels']
-                class_names=["bg","module"]
+                class_names=["bg","module","bathPod"]
                 my_masks=torch.permute(my_masks,(1,2,0))
                 myBoxes = torch.cat((my_boxes, class_ids.unsqueeze(dim=1)), 1)
                 my_image=torch.permute(images[i],(1,2,0))
@@ -125,7 +127,7 @@ def evaluate(model, data_loader,img_write, device):
                 display_instances(my_image, myBoxes, my_masks, class_ids, class_names,
                                     scores=None, title="",
                                 figsize=(16, 16), ax=None,
-                                show_mask=False, show_bbox=True,
+                                show_mask=True, show_bbox=True,
                                 colors=None, captions=None)
         #================================
     # gather the stats from all processes
@@ -136,5 +138,20 @@ def evaluate(model, data_loader,img_write, device):
     # accumulate predictions from all images
     coco_evaluator.accumulate()
     coco_evaluator.summarize()
+
+    # mAP = coco_evaluator.coco_eval['bbox'].stats[0]
+    # print(coco_evaluator.coco_eval.keys())
+    # print(mAP)
+    # exit()
+    #TODO: Visualize the mAP for each epoch 
+    # Plot the mAP
+    # class_names = { "Module":1,"BathPod":2}
+    # import matplotlib.pyplot as plt
+    # fig, ax = plt.subplots()
+    # ax.bar(class_names, mAP)
+    # plt.xticks(rotation=90)
+    # plt.ylim([0, 1])
+    # plt.ylabel("mAP")
+    # plt.show()
     #torch.set_num_threads(n_threads)
     return coco_evaluator

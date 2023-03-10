@@ -143,6 +143,7 @@ class MetricLogger:
         self.meters[name] = meter
 
     def log_every(self, iterable, print_freq, header=None):
+
         i = 0
         if not header:
             header = ""
@@ -150,7 +151,7 @@ class MetricLogger:
         end = time.time()
         iter_time = SmoothedValue(fmt="{avg:.4f}")
         data_time = SmoothedValue(fmt="{avg:.4f}")
-        space_fmt = ":" + str(len(str(len(iterable)))) + "d"
+        space_fmt = ":" + str(len(str(iterable))) + "d"
         if torch.cuda.is_available():
             log_msg = self.delimiter.join(
                 [
